@@ -7,7 +7,7 @@ void	*memmove(void *dest, const void *src, size_t n)
 
 	cdest = (char *)dest;
 	csrc = (char *)src;
-	if (!dest && !src)
+	if (!cdest && !csrc)
 		return (0);
 	if (dest <= src)
 	{

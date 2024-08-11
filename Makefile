@@ -8,7 +8,6 @@ SRC = ft_atoi.c    \
        ft_isascii.c \
        ft_isdigit.c \
        ft_isprint.c \
-       ft_itoa.c    \
        ft_memchr.c  \
        ft_memcmp.c  \
        ft_memcpy.c  \
@@ -33,7 +32,9 @@ SRC = ft_atoi.c    \
        ft_strtrim.c \
        ft_substr.c \
        ft_tolower.c \
-       ft_toupper.c
+       ft_toupper.c \
+       ft_itoa.c 
+       
 
 OBJS = $(SRC:.c=.o) # This variable will convert src .c files to object files .o
 
