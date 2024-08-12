@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int ft_strlen(const char *str)
 {
@@ -8,19 +9,6 @@ int ft_strlen(const char *str)
 	while(str[i] != '\0')
 		i++;
 	return i;
-}
-
-int fstrlen(const char *str)
-{
-	int i = 0;
-	int j = 0;
-	while(str[i])
-	{
-		if(str[i] == ' ')
-			j++;
-		i++;
-	}
-	return i - j;
 }
 
 int word_count(const char *str)
@@ -39,42 +27,64 @@ int word_count(const char *str)
 	return words;
 }
 
-
-//Se la stringa è "ciao come stai"
-//la stringa dovrà dividersi in 3 sotto stringhe. ciao/0 come/0 /stai/0
-//Come salvo ogni stringa ottenuta?
-//Riempio l'array di stringhe con le strighe ottenute.
-//Null termino l'array di stringhe.
-char **ft_split(const char *s, char c)
+char *ft_strncpy(char *dest, char *src, int n)
 {
-	int	sep;
-	int	total = 0;
-	char	**words;
-	int	i;
-	int	j;
-
-	i = 0;
-	sep = word_count(s) - 1;
-	//Allocate memory for entire string without spaces + separators + 1 for null terminator.
-	words = (char **)malloc(sizeof(char) * (fstrlen(s) + sep + 1));
-	//Obiettivo funzione : 
-	while(words[i])
+	int i = 0;
+	char *orig = dest;
+	while(*src && i < n)
 	{
-		while(s[j])
-		{
-			words[i][j] = s[j];
-			j++;
-		}
+		*dest++ = *src++;
 		i++;
 	}
+	*dest = '\0';
+	return orig;
+}
+
+//s = stringa da dividere in più sotto stringhe.
+//**words sarà un array di stringhe. --> Dove andremo a mettere le sottostringhe.
+//Primo step. Malloc per le parole totali.
+//Secondo step. Inizializzare le parole a NULL? perchè?
+//Ciclare le varie parole per calcolarne la lunghezza e allocando memoria per ognuna di esse.
+
+char **ft_split(const char *s, char c)
+{
+	int	num_words;
+	size_t	word_len;
+	const char 	*start = s;
+	const char	*end;
+	char	**words;
+	int	i;
+
+	i = 0;
+	num_words = word_count(s);
+	//Allocate memory for the whole string + sep + 1 for null terminator.
+	words = (char **)malloc((sizeof(char *) * (num_words) + 1));
+	printf("%li\n",sizeof(char*) * (num_words) + 1);
+	i = 0;
+	while (i < num_words)
+	{
+		while(*start == ' ' || *start == '\t')
+			start++;
+		end = start; //Primo carattere trovato, ora aumentiamo end fino alla fine della parola.
+		while(*end != ' ' && *end != '\t')
+			end++; //Trovo la fine della parola.
+		word_len = end - start; // --> lunghezza parola.
+		words[i] = (char*)malloc(sizeof(char) * (word_len +1)); //Allocato spazio per la prima parola.
+		ft_strncpy(words[i],(char*)start,word_len);
+		while( i < num_words - 1)
+		start = end;
+		i++;
+	}
+	i = 0;
 	return words;
 }
 
 
-#include <stdio.h>
+
+
 int main(int ac, char **av)
 {
-	char **str = ft_split(av[1],'-');
-	printf("%s\n",str[0]);
+	char **str = ft_split("ciao come state ragazzi",'+');
+	printf("%s %s %s  %s\n", str[0], str[1], str[2], str[3]);
 }
-		
+
