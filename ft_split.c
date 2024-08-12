@@ -35,17 +35,24 @@ static char	*ft_strncpy(char *dest, char *src, int n)
 	return (orig);
 }
 
-char *create_word(char *start, size_t length, char c)
+char	*create_word(char *start, size_t length, char c)
 {
-    char *word;
+	char	*word;
 
-    word = (char *)malloc(sizeof(char) * (length + 2)); // +2: uno per il carattere c e uno per il terminatore null
-    if (!word)
-        return (NULL);
-    ft_strncpy(word, start, length);
-    word[length] = c;
-    word[length + 1] = '\0';
-    return (word);
+	word = (char *)malloc(sizeof(char) * (length + 2));
+	if (!word)
+		return (NULL);
+	ft_strncpy(word, start, length);
+	word[length] = c;
+	word[length + 1] = '\0';
+	return (word);
+}
+
+const char	*skip_whitespaces(const char *s)
+{
+	while (*s == ' ' || (*s >= 9 && *s <= 13))
+		s++;
+	return (s);
 }
 
 char	**ft_split(const char *s, char c)
@@ -63,30 +70,15 @@ char	**ft_split(const char *s, char c)
 		return (NULL);
 	while (i < word_count(s))
 	{
-		while (*start == ' ' || (*start >= 9 && *start <= 13))
-			start++;
+		start = skip_whitespaces(start);
 		end = start;
 		while (*end != ' ' && *end != '\t' && *end != '\n' && *end)
 			end++;
 		word_len = end - start;
-		words[i] = create_word((char *)start, word_len, c);
+		words[i++] = create_word((char *)start, word_len, c);
 		start = end;
-		i++;
 	}
+	words[word_count(s) - 1][word_len] = '\0';
 	words[word_count(s)] = NULL;
 	return (words);
-}
-
-int main()
-{
-    int i = 0;
-    char **str = ft_split("   test1 test2 test3   ", '+');
-    while (str[i])
-    {
-        printf("%s", str[i]);
-        free(str[i]);
-        i++;
-    }
-    free(str);
-    return 0;
 }
