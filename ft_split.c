@@ -1,6 +1,16 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lorenzo <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/13 18:26:33 by lorenzo           #+#    #+#             */
+/*   Updated: 2024/08/13 19:22:39 by lorenzo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
 
 static int	word_count(const char *str)
 {
@@ -82,3 +92,14 @@ char	**ft_split(const char *s, char c)
 	words[word_count(s)] = NULL;
 	return (words);
 }
+/*#include <stdio.h>
+int main()
+{
+	char **str = ft_split("ciao come stai", ' ');
+	int i = 0;
+	while(str[i])
+	{
+		printf("%s\n", str[i]);
+		i++;
+	}
+}*/

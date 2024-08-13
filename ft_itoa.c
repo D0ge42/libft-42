@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lorenzo <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/13 18:19:38 by lorenzo           #+#    #+#             */
+/*   Updated: 2024/08/13 19:51:48 by lorenzo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static unsigned int	digit_count(int nb)
 {
-	unsigned int	digit_count;
+	unsigned int	digits_count;
 
-	digit_count = 1;
+	digits_count = 1;
 	if (nb == -2147483648)
 		return (10);
 	if (nb < 0)
@@ -12,9 +24,9 @@ static unsigned int	digit_count(int nb)
 	while (nb > 9)
 	{
 		nb /= 10;
-		digit_count++;
+		digits_count++;
 	}
-	return (digit_count);
+	return (digits_count);
 }
 
 static void	rarray(char *str)
@@ -50,10 +62,10 @@ char	*ft_itoa(int n)
 	str = (char *)malloc(sizeof (char) * (digit_count(n) + 2));
 	if (!str)
 		return (NULL);
-	if (n == 0)
-		return ("0");
 	if (n == -2147483648)
 		return ("-2147483648");
+	if (num == 0)
+		str[i++] = '0';
 	while (n > 0 || n < 0)
 	{
 		if (n < 0)
