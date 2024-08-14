@@ -6,11 +6,32 @@
 /*   By: lorenzo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 18:27:14 by lorenzo           #+#    #+#             */
-/*   Updated: 2024/08/13 18:27:15 by lorenzo          ###   ########.fr       */
+/*   Updated: 2024/08/14 11:58:41 by lorenzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+char    *ft_strchr(const char *str, int c)
+{
+        while (*str)
+        {
+                if (*str == c)
+                        return ((char *)str);
+                str++;
+        }
+        if (c == '\0')
+                return ((char *)str);
+        return (0);
+}
+size_t  ft_strlen(const char *s)
+{
+        const char      *s2;
+
+        s2 = s;
+        while (*s)
+                s++;
+        return (s - s2);
+}
 
 char	*ft_strtrim(char const *s1, char const *set)
 {

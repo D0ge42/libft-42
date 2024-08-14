@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lorenzo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 18:19:38 by lorenzo           #+#    #+#             */
-/*   Updated: 2024/08/13 19:51:48 by lorenzo          ###   ########.fr       */
+/*   Created: 2024/08/13 21:35:48 by lorenzo           #+#    #+#             */
+/*   Updated: 2024/08/13 21:56:02 by lorenzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static unsigned int	digit_count(int nb)
 
 	digits_count = 1;
 	if (nb == -2147483648)
-		return (10);
+		return (11);
 	if (nb < 0)
 		nb *= -1;
 	while (nb > 9)
@@ -64,8 +64,8 @@ char	*ft_itoa(int n)
 		return (NULL);
 	if (n == -2147483648)
 		return ("-2147483648");
-	if (num == 0)
-		str[i++] = '0';
+	if (n == 0)
+		return ("0");
 	while (n > 0 || n < 0)
 	{
 		if (n < 0)

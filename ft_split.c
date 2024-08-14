@@ -5,101 +5,88 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lorenzo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 18:26:33 by lorenzo           #+#    #+#             */
-/*   Updated: 2024/08/13 19:22:39 by lorenzo          ###   ########.fr       */
+/*   Created: 2024/08/14 10:16:51 by lorenzo           #+#    #+#             */
+/*   Updated: 2024/08/14 15:07:49 by lorenzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-static int	word_count(const char *str)
+int	ft_isspace(char c)
+{
+	if (c == '\t' || c == '\n' || c == ' ')
+		return (1);
+	return (0);
+}
+
+static int	words_count(char const *str, char c)
 {
 	int	words;
 	int	i;
 
 	i = 0;
 	words = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	while (str[i] == c)
 		i++;
 	while (str[i])
 	{
-		if ((str[i] != ' ' && (str[i] < 9 || str[i] > 13))
-			&& ((str[i + 1] == ' ') || (str[i + 1] >= 9 && str[i + 1] <= 13)
-				|| str[i + 1] == '\0'))
+		if ((str[i] == c && (str[i + 1] != c)) || str[i + 1] == '\0')
 			words++;
 		i++;
 	}
 	return (words);
 }
 
-static char	*ft_strncpy(char *dest, char *src, int n)
+char	*ft_strncpy(char *dest, char *src, int len, char c)
 {
 	int		i;
 	char	*orig;
 
-	i = 0;
 	orig = dest;
-	while (*src && i++ < n)
-		*dest++ = *src++;
+	i = 0;
+	while (i < len)
+	{
+		if (*src != c)
+			*dest++ = *src++;
+		i++;
+	}
 	*dest = '\0';
 	return (orig);
 }
 
-char	*create_word(char *start, size_t length, char c)
+char	**ft_split(char const *s, char c)
 {
-	char	*word;
-
-	word = (char *)malloc(sizeof(char) * (length + 2));
-	if (!word)
-		return (NULL);
-	ft_strncpy(word, start, length);
-	word[length] = c;
-	word[length + 1] = '\0';
-	return (word);
-}
-
-const char	*skip_whitespaces(const char *s)
-{
-	while (*s == ' ' || (*s >= 9 && *s <= 13))
-		s++;
-	return (s);
-}
-
-char	**ft_split(const char *s, char c)
-{
-	size_t		word_len;
-	const char	*start;
-	const char	*end;
-	char		**words;
-	int			i;
+	char	**split;
+	char	*start;
+	char	*end;
+	int		i;
 
 	i = 0;
-	start = s;
-	words = (char **)malloc((sizeof (char *) * (word_count(s) + 1)));
-	if (!words)
+	split = (char **)malloc(sizeof(char *) * (words_count(s, c) + 1));
+	if (!split)
 		return (NULL);
-	while (i < word_count(s))
+	
+	start = (char *)s;
+	while (i < words_count(s, c))
 	{
-		start = skip_whitespaces(start);
 		end = start;
-		while (*end != ' ' && *end != '\t' && *end != '\n' && *end)
+		while (*end != c && *end)
 			end++;
-		word_len = end - start;
-		words[i++] = create_word((char *)start, word_len, c);
+		end++;
+		split[i] = (char *)malloc(sizeof(char) * (end - start + 1));
+		ft_strncpy(split[i++], start, end - start, c);
 		start = end;
 	}
-	words[word_count(s) - 1][word_len] = '\0';
-	words[word_count(s)] = NULL;
-	return (words);
+	split[i] = 0;
+	return (split);
 }
-/*#include <stdio.h>
 int main()
 {
-	char **str = ft_split("ciao come stai", ' ');
+	char **str = ft_split("   lorem   ipsum dolor     sit amet, consectetur   adipiscing elit. sed non risus. suspendisse   ", ' ');
 	int i = 0;
 	while(str[i])
-	{
-		printf("%s\n", str[i]);
-		i++;
-	}
-}*/
+		printf("%s\n",str[i++]);
+	//printf("%i\n", words_count("::a:b.cdefg::g:g:.i:",':'));
+}
