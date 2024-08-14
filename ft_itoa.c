@@ -6,22 +6,28 @@
 /*   By: lorenzo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:35:48 by lorenzo           #+#    #+#             */
-/*   Updated: 2024/08/13 21:56:02 by lorenzo          ###   ########.fr       */
+/*   Updated: 2024/08/14 17:27:36 by lorenzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static unsigned int	digit_count(int nb)
 {
 	unsigned int	digits_count;
 
-	digits_count = 1;
+	digits_count = 0;
+	if (nb == 0)
+		return (1);
 	if (nb == -2147483648)
 		return (11);
 	if (nb < 0)
+	{
+		digits_count = 1;
 		nb *= -1;
-	while (nb > 9)
+	}
+	while (nb > 0)
 	{
 		nb /= 10;
 		digits_count++;
@@ -29,54 +35,29 @@ static unsigned int	digit_count(int nb)
 	return (digits_count);
 }
 
-static void	rarray(char *str)
-{
-	int		i;
-	int		end;
-	char	temp;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	end = i - 1;
-	if (str[0] == '-')
-		i = 1;
-	else
-		i = 0;
-	while (i < end)
-	{
-		temp = str[i];
-		str[i] = str[end];
-		str[end] = temp;
-		i++;
-		end--;
-	}
-}
-
 char	*ft_itoa(int n)
 {
 	char			*str;
-	unsigned int	i;
+	unsigned int	digits;
 
-	i = 0;
-	str = (char *)malloc(sizeof (char) * (digit_count(n) + 2));
+	digits = digit_count(n);
+	str = (char *)malloc(sizeof(char) * (digits + 2));
 	if (!str)
 		return (NULL);
+	str[digits] = '\0';
 	if (n == -2147483648)
 		return ("-2147483648");
 	if (n == 0)
 		return ("0");
-	while (n > 0 || n < 0)
+	while (n != 0)
 	{
 		if (n < 0)
 		{
-			str[i++] = '-';
+			str[0] = '-';
 			n *= -1;
 		}
-		str[i++] = n % 10 + '0';
+		str[--digits] = n % 10 + '0';
 		n /= 10;
 	}
-	rarray(str);
-	str[i] = '\0';
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: lorenzo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:16:51 by lorenzo           #+#    #+#             */
-/*   Updated: 2024/08/14 15:07:49 by lorenzo          ###   ########.fr       */
+/*   Updated: 2024/08/14 15:14:20 by lorenzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ char	**ft_split(char const *s, char c)
 	split = (char **)malloc(sizeof(char *) * (words_count(s, c) + 1));
 	if (!split)
 		return (NULL);
-	
 	start = (char *)s;
 	while (i < words_count(s, c))
 	{
+		while (*start == c)
+			start++;
 		end = start;
 		while (*end != c && *end)
 			end++;
@@ -81,12 +82,4 @@ char	**ft_split(char const *s, char c)
 	}
 	split[i] = 0;
 	return (split);
-}
-int main()
-{
-	char **str = ft_split("   lorem   ipsum dolor     sit amet, consectetur   adipiscing elit. sed non risus. suspendisse   ", ' ');
-	int i = 0;
-	while(str[i])
-		printf("%s\n",str[i++]);
-	//printf("%i\n", words_count("::a:b.cdefg::g:g:.i:",':'));
 }
