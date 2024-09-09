@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lorenzo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 18:19:53 by lorenzo           #+#    #+#             */
-/*   Updated: 2024/09/09 14:53:16 by lonulli          ###   ########.fr       */
+/*   Updated: 2024/09/09 14:54:03 by lonulli          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-int	ft_lstsize(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
+	while (lst->next)
 		lst = lst->next;
-		i++;
-	}
-	return (i);
+	return (lst);
 }
 /*t_list	*ft_lstnew(void *content)
 {
@@ -37,23 +31,12 @@ int	ft_lstsize(t_list *lst)
 	return (new);
 }
 
-int	ft_lstsize(t_list *lst)
-{
-	int i = 0;
-	if(!lst)
-		return 0;
-	else
-	{
-		i = ft_lstsize(lst->next);
-		return i + 1;
-	}
-}
-
 int main()
 {
-	t_list *new = ft_lstnew("ciao");
-	new->next = ft_lstnew("puerco");
-	new->next->next = ft_lstnew("dios");
+	t_list *new = ft_lstnew("hello");
+	new->next = ft_lstnew("world");
+	new->next->next = ft_lstnew("42");
 
-	printf("%i\n", ft_lstsize(new));
+	t_list *new1 = ft_lstlast(new);
+	printf("%s\n", (char *)(new1)->content);
 }*/

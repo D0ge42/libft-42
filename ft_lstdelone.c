@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lorenzo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 18:19:53 by lorenzo           #+#    #+#             */
-/*   Updated: 2024/09/09 14:53:16 by lonulli          ###   ########.fr       */
+/*   Updated: 2024/09/09 14:52:58 by lonulli          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-int	ft_lstsize(t_list *lst)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	int	i;
-
-	i = 0;
-	while (lst)
+	if (!del)
+		return ;
+	if (lst)
 	{
-		lst = lst->next;
-		i++;
+		(*del)(lst->content);
+		free(lst);
 	}
-	return (i);
 }
-/*t_list	*ft_lstnew(void *content)
+/*void free_node(void *data)
+{
+	free(data);
+}
+
+t_list	*ft_lstnew(void *content)
 {
 	t_list	*new;
 
@@ -37,23 +40,24 @@ int	ft_lstsize(t_list *lst)
 	return (new);
 }
 
-int	ft_lstsize(t_list *lst)
-{
-	int i = 0;
-	if(!lst)
-		return 0;
-	else
-	{
-		i = ft_lstsize(lst->next);
-		return i + 1;
-	}
-}
-
 int main()
 {
 	t_list *new = ft_lstnew("ciao");
-	new->next = ft_lstnew("puerco");
-	new->next->next = ft_lstnew("dios");
+	t_list *new3 = (t_list *)malloc(sizeof(t_list));
+	t_list *new2 = new;
+	new->next = ft_lstnew("ciao1");
+	new->next->next = ft_lstnew("ciao2");
 
-	printf("%i\n", ft_lstsize(new));
+	printf("List before function : ");
+	t_list *temp = new;
+	while (temp)
+	{
+		if (temp->next)
+			printf("%s ->", (char *)temp->content);
+		else
+			 printf("%s", (char *)temp->content);
+		temp = temp->next;
+	}
+	printf("\n");
+	ft_lstdelone(new3, free_node);
 }*/
