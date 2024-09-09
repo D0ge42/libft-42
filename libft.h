@@ -49,5 +49,9 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *str, int fd);
 void	ft_putendl_fd(char *str, int fd);
 void	ft_putnbr_fd(int nb, int fd);
-
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}			t_list;
 #endif
