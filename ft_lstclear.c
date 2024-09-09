@@ -14,17 +14,22 @@
 #include <stdio.h>
 #include <string.h>
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	if (!del || !lst)
-		return ;
-	if (lst)
+	t_list *tmp = *lst;
+
+	while (*lst && tmp)
 	{
-		(*del)(lst->content);
-		free(lst);
+		tmp = (*lst)->next;
+		(*del)((*lst)->content);
+		*lst = tmp;
+		free(*lst);
 	}
+	free(*lst);
+	*lst = 0;
 }
-/*void free_node(void *data)
+
+void free_node(void *data)
 {
 	free(data);
 }
@@ -43,29 +48,27 @@ t_list	*ft_lstnew(void *content)
 
 int main()
 {
-	char *str = (char *)malloc(sizeof(char ) *7);
-	strcpy(str,"Test42");
-	t_list *new = ft_lstnew(str);
-	new->next = ft_lstnew("sium");
-	new->next->next = ft_lstnew("daje");
-	t_list *new2 = new->next;
-	while(new)
+	char *str0 = (char *)malloc(sizeof(char ) * 5);
+	char *str1 = (char *)malloc(sizeof(char ) * 5);
+	char *str2 = (char *)malloc(sizeof(char ) * 5);
+
+	strcpy(str0, "1234");
+	strcpy(str1, "4567");
+	strcpy(str2, "6789");
+
+	t_list *new = ft_lstnew(str0);
+	new->next = ft_lstnew(str1);
+	new->next->next = ft_lstnew(str2);
+
+	t_list *temp = new;
+	while(temp)
 	{
-		if(new->next)
-			printf("%s->", (char *)new->content);
+		if (temp->next)
+			printf("%s ->", (char *)temp->content);
 		else
-			printf("%s", (char *)new->content);
-		new = new->next;
+			printf("%s", (char *)temp->content);
+		temp = temp->next;
 	}
 	printf("\n");
-	ft_lstdelone(new, free_node);
-	while(new2)
-	{
-		if(new2->next)
-			printf("%s->", (char *)new2->content);
-		else
-			printf("%s", (char *)new2->content);
-		new2 = new2->next;
-	}
-	printf("\n");
-}*/
+	ft_lstclear(&new, free_node);
+}
