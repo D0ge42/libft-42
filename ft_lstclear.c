@@ -22,14 +22,13 @@ void ft_lstclear(t_list **lst, void (*del)(void *))
 	{
 		tmp = (*lst)->next;
 		(*del)((*lst)->content);
-		*lst = tmp;
 		free(*lst);
+		*lst = tmp;
 	}
-	free(*lst);
-	*lst = 0;
+	*lst = NULL;
 }
 
-void free_node(void *data)
+/*void free_node(void *data)
 {
 	free(data);
 }
@@ -71,4 +70,6 @@ int main()
 	}
 	printf("\n");
 	ft_lstclear(&new, free_node);
-}
+}*/
+//Test by running valgrind --leak-check=full ./program_name in terminal
+ 
