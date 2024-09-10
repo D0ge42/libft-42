@@ -14,27 +14,18 @@
 #include <stdio.h>
 #include <string.h>
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	t_list	*tmp;
-
-	tmp = *lst;
-	while (*lst && tmp)
-	{
-		tmp = (*lst)->next;
-		(*del)((*lst)->content);
-		free(*lst);
-		*lst = tmp;
-	}
-	*lst = NULL;
+	if (!f)
+		return ;
+	if (!lst)
+		return ;
+	if (lst)
+		(*f)(lst->content);
+	ft_lstiter(lst->next, f);
 }
 
-/*void free_node(void *data)
-{
-	free(data);
-}
-
-t_list	*ft_lstnew(void *content)
+/*t_list	*ft_lstnew(void *content)
 {
 	t_list	*new;
 
@@ -46,30 +37,15 @@ t_list	*ft_lstnew(void *content)
 	return (new);
 }
 
+void print_list(void *data)
+{
+	printf("%s ->", (char *)data);
+}
+
 int main()
 {
-	char *str0 = (char *)malloc(sizeof(char ) * 5);
-	char *str1 = (char *)malloc(sizeof(char ) * 5);
-	char *str2 = (char *)malloc(sizeof(char ) * 5);
-
-	strcpy(str0, "1234");
-	strcpy(str1, "4567");
-	strcpy(str2, "6789");
-
-	t_list *new = ft_lstnew(str0);
-	new->next = ft_lstnew(str1);
-	new->next->next = ft_lstnew(str2);
-
-	t_list *temp = new;
-	while(temp)
-	{
-		if (temp->next)
-			printf("%s ->", (char *)temp->content);
-		else
-			printf("%s", (char *)temp->content);
-		temp = temp->next;
-	}
-	printf("\n");
-	ft_lstclear(&new, free_node);
+	 t_list *new = ft_lstnew("ciao");
+	new->next = ft_lstnew("daje");
+	new->next->next = ft_lstnew("sium");
+	ft_lstiter(new, print_list);
 }*/
-//Test by running valgrind --leak-check=full ./program_name in terminal
