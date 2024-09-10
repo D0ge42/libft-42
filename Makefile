@@ -39,15 +39,15 @@ SRC = ft_atoi.c    \
 OBJS = $(SRC:.c=.o) # This variable will convert src .c files to object files .o
 
 # These files will also be compiled if the bonus rule is executed.
-BONUS = ft_lstadd_back_bonus.c  \
-        ft_lstadd_front_bonus.c \
-        ft_lstclear_bonus.c     \
-        ft_lstdelone_bonus.c    \
-        ft_lstiter_bonus.c      \
-        ft_lstlast_bonus.c      \
-        ft_lstmap_bonus.c       \
-        ft_lstnew_bonus.c       \
-        ft_lstsize_bonus.c
+BONUS = ft_lstadd_back.c  \
+        ft_lstadd_front.c \
+        ft_lstclear.c     \
+        ft_lstdelone.c    \
+        ft_lstiter.c      \
+        ft_lstlast.c      \
+        ft_lstmap.c       \
+        ft_lstnew.c       \
+        ft_lstsize.c
 
 BONUS_OBJS = $(BONUS:.c=.o) # This will convert bonus .c files to bonus .o files
 
