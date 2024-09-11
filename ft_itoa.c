@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <math.h>
 #include <stdio.h>
+#include <string.h>
 
 static unsigned int	digit_count(int nb)
 {
@@ -35,20 +37,32 @@ static unsigned int	digit_count(int nb)
 	return (digits_count);
 }
 
+char	*ft_strcpy(char *dest, char *src)
+{
+	char	*orig;
+
+	orig = dest;
+	while (*src)
+		*dest++ = *src++;
+	*dest = '\0';
+	return (orig);
+}
+
 char	*ft_itoa(int n)
 {
-	char			*str;
 	unsigned int	digits;
+	char			*str;
 
 	digits = digit_count(n);
-	str = (char *)malloc(sizeof(char) * (digits + 2));
-	if (!str)
-		return (NULL);
+	str = (char *)malloc(sizeof(char) * digits + 1);
+	if (n == 0 || n == -2147483648)
+	{
+		if (n == 0)
+			return (ft_strcpy(str, "0"));
+		else
+			return (ft_strcpy(str, "-2147483648"));
+	}
 	str[digits] = '\0';
-	if (n == -2147483648)
-		return ("-2147483648");
-	if (n == 0)
-		return ("0");
 	while (n != 0)
 	{
 		if (n < 0)
