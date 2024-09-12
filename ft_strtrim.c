@@ -49,7 +49,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	copy = (char *)malloc(sizeof(char) * (s1len + 1));
 	if (!copy)
 		return (NULL);
-	while (ft_strchr(set, s1[i]))
+	while (ft_strchr(set, s1[i]) && i < (int)s1len)
 		i++;
 	j = i;
 	while (s1[i])

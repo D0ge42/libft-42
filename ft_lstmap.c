@@ -13,7 +13,6 @@
 #include "libft.h"
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
@@ -77,8 +76,8 @@ void ft_lstadd_back(t_list **new_list, t_list *new)
 	}
 	ft_lstadd_back(&(*new_list)->next, new);
 }
-
-void *to_uppercase(void *data)
+*/
+/*void *to_uppercase(void *data)
 {
     char *str = (char *)data;
     for (int i = 0; str[i]; i++)
@@ -89,8 +88,8 @@ void *to_uppercase(void *data)
 void del_data(void *data)
 {
 	free(data);
-}*/
-/*int main()
+}
+int main()
 {
 	char *str = (char *)malloc(sizeof(char ) * 4);
 	char *str1 = (char *)malloc(sizeof(char ) * 4);
